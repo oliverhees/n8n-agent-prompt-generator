@@ -14,7 +14,8 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0a0a0a;
+            color: #e0e0e0;
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,9 +25,73 @@
             margin: 0 auto;
         }
 
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #00d4ff;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-community {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #0a0a0a;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-community:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-submit {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-submit:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+        }
+
         .header {
             text-align: center;
-            color: white;
+            color: #e0e0e0;
             margin-bottom: 40px;
             padding: 40px 20px;
         }
@@ -34,12 +99,15 @@
         .header h1 {
             font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header p {
             font-size: 1.2em;
-            opacity: 0.95;
+            color: #b0b0b0;
         }
 
         .main-content {
@@ -56,17 +124,18 @@
         }
 
         .card {
-            background: white;
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         .card h2 {
-            color: #1a1a1a;
+            color: #00d4ff;
             margin-bottom: 20px;
             font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
             padding-bottom: 10px;
         }
 
@@ -78,7 +147,7 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #2a2a2a;
+            color: #00d4ff;
             font-size: 1.05em;
         }
 
@@ -87,18 +156,21 @@
         .form-group select {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e0e0e0;
+            background: #0a0a0a;
+            border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 8px;
             font-size: 1em;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            color: #e0e0e0;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #00d4ff;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
         }
 
         .form-group textarea {
@@ -110,16 +182,16 @@
         .form-group small {
             display: block;
             margin-top: 5px;
-            color: #666;
+            color: #808080;
             font-size: 0.9em;
         }
 
         .tool-item {
-            background: #f8f9fa;
+            background: rgba(0, 212, 255, 0.05);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #00d4ff;
         }
 
         .tool-item input {
@@ -127,8 +199,8 @@
         }
 
         .btn {
-            background: #667eea;
-            color: white;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #0a0a0a;
             border: none;
             padding: 12px 24px;
             border-radius: 8px;
@@ -141,25 +213,26 @@
         }
 
         .btn:hover {
-            background: #5568d3;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: rgba(108, 117, 125, 0.3);
+            color: #e0e0e0;
+            border: 1px solid rgba(108, 117, 125, 0.5);
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background: rgba(108, 117, 125, 0.5);
         }
 
         .btn-success {
-            background: #28a745;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
         }
 
         .btn-success:hover {
-            background: #218838;
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
         }
 
         .btn-small {
@@ -168,10 +241,11 @@
         }
 
         .preview {
-            background: #1e1e1e;
-            color: #d4d4d4;
+            background: #000000;
+            color: #00ff88;
             padding: 25px;
             border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
             font-family: 'Courier New', monospace;
             font-size: 0.95em;
             line-height: 1.6;
@@ -192,14 +266,15 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #28a745;
-            color: white;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #0a0a0a;
             padding: 15px 25px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.4);
             display: none;
             animation: slideIn 0.3s ease-out;
             z-index: 1000;
+            font-weight: 600;
         }
 
         @keyframes slideIn {
@@ -220,59 +295,51 @@
             margin-bottom: 25px;
         }
 
-        .highlight {
-            color: #9cdcfe;
-        }
-
-        .comment {
-            color: #6a9955;
-        }
-
-        .string {
-            color: #ce9178;
-        }
-
-        .keyword {
-            color: #c586c0;
-        }
-
         .footer {
             text-align: center;
-            color: white;
+            color: #808080;
             padding: 30px;
             margin-top: 40px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         .footer a {
-            color: white;
-            text-decoration: underline;
+            color: #00d4ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #00ffcc;
         }
 
         .examples-section {
-            background: white;
+            background: #1a1a1a;
+            border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             margin-top: 30px;
         }
 
         .example-card {
-            background: #f8f9fa;
+            background: rgba(0, 212, 255, 0.05);
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.3s;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #00d4ff;
         }
 
         .example-card:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
         }
 
         .example-card h3 {
-            color: #667eea;
+            color: #00d4ff;
             margin-bottom: 10px;
         }
 
@@ -284,20 +351,21 @@
         }
 
         .stat-card {
-            background: #f8f9fa;
+            background: rgba(0, 212, 255, 0.05);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         .stat-number {
             font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: #00d4ff;
         }
 
         .stat-label {
-            color: #666;
+            color: #808080;
             margin-top: 5px;
         }
 
@@ -312,21 +380,59 @@
         }
 
         .tools-container::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: rgba(0, 212, 255, 0.1);
             border-radius: 10px;
         }
 
         .tools-container::-webkit-scrollbar-thumb {
-            background: #667eea;
+            background: #00d4ff;
             border-radius: 10px;
+        }
+
+        .preview::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .preview::-webkit-scrollbar-track {
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .preview::-webkit-scrollbar-thumb {
+            background: #00d4ff;
+            border-radius: 10px;
+        }
+
+        .community-badge {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="top-bar">
+            <div class="logo">⚡ n8n Prompt Generator</div>
+            <div class="top-buttons">
+                <a href="https://www.skool.com/ki-heroes/" target="_blank" class="btn-community">
+                    🚀 Join AI Automation Engineers
+                </a>
+                <a href="submit-template.html" class="btn-submit">
+                    📤 Template Einreichen
+                </a>
+            </div>
+        </div>
+
         <div class="header">
             <h1>🤖 n8n AI Agent Prompt Generator</h1>
             <p>Erstelle perfekt strukturierte System Messages für deine n8n AI Agents</p>
+            <span class="community-badge">Teil der AI Automation Engineers Community</span>
         </div>
 
         <div class="copy-notification" id="copyNotification">
@@ -406,13 +512,11 @@
                     </div>
                 </div>
                 
-                <div class="preview" id="preview">
-                    <span class="comment">// Dein generierter Prompt erscheint hier...</span>
-                    <br><br>
-                    <span class="comment">// 👈 Fülle das Formular aus und klicke "Prompt Generieren"</span>
-                    <br><br>
-                    <span class="comment">// 💡 Oder teste ein Template oben!</span>
-                </div>
+                <div class="preview" id="preview">// Dein generierter Prompt erscheint hier...
+
+// 👈 Fülle das Formular aus und klicke "Prompt Generieren"
+
+// 💡 Oder teste ein Template oben!</div>
 
                 <div class="stats" style="margin-top: 20px;">
                     <div class="stat-card">
@@ -434,34 +538,41 @@
         <!-- Examples Section -->
         <div class="examples-section">
             <h2>💡 Beispiel-Agents zum Laden</h2>
-            <p style="margin-bottom: 20px; color: #666;">Klicke auf ein Beispiel um es zu laden und anzupassen</p>
+            <p style="margin-bottom: 20px; color: #808080;">Klicke auf ein Beispiel um es zu laden und anzupassen</p>
             
             <div class="example-card" onclick="loadTemplate('support')">
                 <h3>🎧 Customer Support Agent</h3>
-                <p>Beantwortet Kundenfragen basierend auf Knowledge Base, erstellt Tickets und sendet Follow-up Emails</p>
+                <p style="color: #b0b0b0;">Beantwortet Kundenfragen basierend auf Knowledge Base, erstellt Tickets und sendet Follow-up Emails</p>
             </div>
 
             <div class="example-card" onclick="loadTemplate('research')">
                 <h3>🔍 Research Agent</h3>
-                <p>Scraped Websites, extrahiert Informationen und speichert strukturierte Recherche-Ergebnisse</p>
+                <p style="color: #b0b0b0;">Scraped Websites, extrahiert Informationen und speichert strukturierte Recherche-Ergebnisse</p>
             </div>
 
             <div class="example-card" onclick="loadTemplate('data')">
                 <h3>📊 Data Analyst Agent</h3>
-                <p>Übersetzt natürliche Sprache in SQL Queries, analysiert Daten und erstellt Visualisierungen</p>
+                <p style="color: #b0b0b0;">Übersetzt natürliche Sprache in SQL Queries, analysiert Daten und erstellt Visualisierungen</p>
             </div>
 
             <div class="example-card" onclick="loadTemplate('email')">
                 <h3>📧 Email Summarization Agent</h3>
-                <p>Kategorisiert Emails, extrahiert Action Items und generiert tägliche Digests</p>
+                <p style="color: #b0b0b0;">Kategorisiert Emails, extrahiert Action Items und generiert tägliche Digests</p>
             </div>
         </div>
 
         <div class="footer">
-            <p>Teil des <strong>n8n AI Agent Mastery</strong> Kurses</p>
+            <p>Teil der <strong>AI Automation Engineers Community</strong></p>
             <p style="margin-top: 10px;">
-                <a href="https://github.com/yourusername/n8n-prompt-generator" target="_blank">GitHub</a> | 
-                <a href="#" target="_blank">Zurück zum Kurs</a>
+                <a href="submit-template.html">📤 Template einreichen</a> | 
+                <a href="https://github.com/oliverhees/n8n-prompt-generator" target="_blank">GitHub</a> | 
+                <a href="https://www.skool.com/ki-heroes/" target="_blank">Skool Community</a>
+            </p>
+            <p style="margin-top: 15px; opacity: 0.7;">
+                Hast du ein cooles Template gebaut? <a href="submit-template.html" style="text-decoration: underline; font-weight: 600;">Teile es mit der Community!</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                Entwickelt von <a href="https://github.com/oliverhees" target="_blank">Oliver Hees</a>
             </p>
         </div>
     </div>
@@ -544,7 +655,6 @@
             document.getElementById('fallback').value = template.fallback;
             document.getElementById('personality').value = template.personality || '';
 
-            // Clear and load tools
             const container = document.getElementById('toolsContainer');
             container.innerHTML = '';
             template.tools.forEach(tool => {
@@ -576,7 +686,7 @@
                 </div>
             `;
 
-            document.getElementById('preview').innerHTML = `<span class="comment">// Formular wurde zurückgesetzt</span>`;
+            document.getElementById('preview').textContent = '// Formular wurde zurückgesetzt';
             updateStats('');
         }
 
@@ -593,7 +703,6 @@
                 return;
             }
 
-            // Collect tools
             const toolElements = document.querySelectorAll('.tool-item');
             const tools = [];
             toolElements.forEach(el => {
@@ -604,7 +713,6 @@
                 }
             });
 
-            // Build prompt
             let prompt = `Du bist ein ${role}.\n\n`;
             
             if (mainFunction) {
@@ -654,7 +762,7 @@
         function updateStats(prompt) {
             const charCount = prompt.length;
             const wordCount = prompt.trim() ? prompt.trim().split(/\s+/).length : 0;
-            const tokenEstimate = Math.ceil(charCount / 3); // Rough estimate: ~3 chars per token
+            const tokenEstimate = Math.ceil(charCount / 3);
 
             document.getElementById('charCount').textContent = charCount;
             document.getElementById('wordCount').textContent = wordCount;
@@ -695,7 +803,6 @@
             }, 2000);
         }
 
-        // Initialize with empty stats
         updateStats('');
     </script>
 </body>
