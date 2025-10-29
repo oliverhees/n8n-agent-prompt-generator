@@ -2,9 +2,9 @@
 
 > Erstelle perfekt strukturierte System Messages für n8n AI Agents in Sekunden
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://yourusername.github.io/n8n-prompt-generator)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://oliverhees.github.io/n8n-agent-prompt-generator)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
-[![GitHub Issues](https://img.shields.io/github/issues/yourusername/n8n-prompt-generator?style=for-the-badge)](https://github.com/yourusername/n8n-prompt-generator/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/oliverhees/n8n-agent-prompt-generator?style=for-the-badge)](https://github.com/oliverhees/n8n-agent-prompt-generator/issues)
 
 Ein kostenloser, interaktiver Web-Generator für n8n AI Agent Prompts. Basierend auf Community-erprobten Best Practices aus dem **n8n AI Agent Mastery** Kurs.
 
@@ -25,7 +25,7 @@ Ein kostenloser, interaktiver Web-Generator für n8n AI Agent Prompts. Basierend
 
 ### Online nutzen (empfohlen)
 
-Besuche einfach: **[https://yourusername.github.io/n8n-prompt-generator](https://oliverhees.github.io/n8n-agent-prompt-generator)**
+Besuche einfach: **[https://oliverhees.github.io/n8n-agent-prompt-generator](https://oliverhees.github.io/n8n-agent-prompt-generator)**
 
 ### Lokal ausführen
 
