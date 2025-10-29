@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n AI Agent Prompt Generator</title>
+    <meta name="description" content="Erstelle perfekt strukturierte System Messages für n8n AI Agents">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2a2a2a;
+            font-size: 1.05em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .tool-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .tool-item input {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+
+        .preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            max-height: 600px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .template-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: #9cdcfe;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .keyword {
+            color: #c586c0;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .examples-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .example-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid #667eea;
+        }
+
+        .example-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .example-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .tools-container {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .tools-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .tools-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .tools-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 n8n AI Agent Prompt Generator</h1>
+            <p>Erstelle perfekt strukturierte System Messages für deine n8n AI Agents</p>
+        </div>
+
+        <div class="copy-notification" id="copyNotification">
+            ✓ Prompt kopiert!
+        </div>
+
+        <div class="main-content">
+            <!-- Input Form -->
+            <div class="card">
+                <h2>⚙️ Agent Konfiguration</h2>
+
+                <div class="template-buttons">
+                    <button class="btn btn-small" onclick="loadTemplate('support')">Customer Support</button>
+                    <button class="btn btn-small" onclick="loadTemplate('research')">Research Agent</button>
+                    <button class="btn btn-small" onclick="loadTemplate('data')">Data Analyst</button>
+                    <button class="btn btn-small" onclick="loadTemplate('email')">Email Assistant</button>
+                    <button class="btn btn-small btn-secondary" onclick="resetForm()">Reset</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="agentRole">Agent Rolle *</label>
+                    <input type="text" id="agentRole" placeholder="z.B. Customer Support Agent, Research Assistant, Data Analyst">
+                    <small>Definiere eine spezifische Rolle für deinen Agent</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="mainFunction">Hauptfunktion *</label>
+                    <textarea id="mainFunction" placeholder="z.B. Beantwortet Kundenfragen basierend auf der Knowledge Base"></textarea>
+                    <small>Was ist die primäre Aufgabe dieses Agents?</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="workflow">Workflow Schritte</label>
+                    <textarea id="workflow" placeholder="1. Erster Schritt&#10;2. Zweiter Schritt&#10;3. Dritter Schritt"></textarea>
+                    <small>Step-by-step Anleitung für den Agent (eine Zeile pro Schritt)</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Verfügbare Tools</label>
+                    <div class="tools-container" id="toolsContainer">
+                        <div class="tool-item">
+                            <input type="text" placeholder="Tool Name (z.B. web_search)" class="tool-name">
+                            <textarea placeholder="Beschreibung: Wann und wie dieses Tool nutzen" class="tool-desc"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-small" onclick="addTool()">+ Tool hinzufügen</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="constraints">Einschränkungen & Regeln</label>
+                    <textarea id="constraints" placeholder="- Du MUSST immer...&#10;- Du darfst NIEMALS...&#10;- Bei... tue..."></textarea>
+                    <small>Kritische Do's und Don'ts für den Agent</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="fallback">Fallback Verhalten</label>
+                    <textarea id="fallback" placeholder="Falls ein Tool fehlschlägt...&#10;Falls keine Antwort gefunden wird..."></textarea>
+                    <small>Was soll der Agent bei Problemen tun?</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="personality">Kommunikationsstil (Optional)</label>
+                    <textarea id="personality" placeholder="- Sei freundlich und professionell&#10;- Nutze Emojis sparsam&#10;- Halte Antworten prägnant"></textarea>
+                    <small>Definiere die Persönlichkeit des Agents</small>
+                </div>
+
+                <button class="btn" onclick="generatePrompt()">🚀 Prompt Generieren</button>
+            </div>
+
+            <!-- Preview -->
+            <div class="card">
+                <div class="preview-header">
+                    <h2>📋 Generierter Prompt</h2>
+                    <div>
+                        <button class="btn btn-success btn-small" onclick="copyPrompt()">Copy</button>
+                        <button class="btn btn-secondary btn-small" onclick="downloadPrompt()">Download</button>
+                    </div>
+                </div>
+                
+                <div class="preview" id="preview">
+                    <span class="comment">// Dein generierter Prompt erscheint hier...</span>
+                    <br><br>
+                    <span class="comment">// 👈 Fülle das Formular aus und klicke "Prompt Generieren"</span>
+                    <br><br>
+                    <span class="comment">// 💡 Oder teste ein Template oben!</span>
+                </div>
+
+                <div class="stats" style="margin-top: 20px;">
+                    <div class="stat-card">
+                        <div class="stat-number" id="charCount">0</div>
+                        <div class="stat-label">Zeichen</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="wordCount">0</div>
+                        <div class="stat-label">Wörter</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="tokenEstimate">0</div>
+                        <div class="stat-label">≈ Tokens</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examples Section -->
+        <div class="examples-section">
+            <h2>💡 Beispiel-Agents zum Laden</h2>
+            <p style="margin-bottom: 20px; color: #666;">Klicke auf ein Beispiel um es zu laden und anzupassen</p>
+            
+            <div class="example-card" onclick="loadTemplate('support')">
+                <h3>🎧 Customer Support Agent</h3>
+                <p>Beantwortet Kundenfragen basierend auf Knowledge Base, erstellt Tickets und sendet Follow-up Emails</p>
+            </div>
+
+            <div class="example-card" onclick="loadTemplate('research')">
+                <h3>🔍 Research Agent</h3>
+                <p>Scraped Websites, extrahiert Informationen und speichert strukturierte Recherche-Ergebnisse</p>
+            </div>
+
+            <div class="example-card" onclick="loadTemplate('data')">
+                <h3>📊 Data Analyst Agent</h3>
+                <p>Übersetzt natürliche Sprache in SQL Queries, analysiert Daten und erstellt Visualisierungen</p>
+            </div>
+
+            <div class="example-card" onclick="loadTemplate('email')">
+                <h3>📧 Email Summarization Agent</h3>
+                <p>Kategorisiert Emails, extrahiert Action Items und generiert tägliche Digests</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Teil des <strong>n8n AI Agent Mastery</strong> Kurses</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/yourusername/n8n-prompt-generator" target="_blank">GitHub</a> | 
+                <a href="#" target="_blank">Zurück zum Kurs</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const templates = {
+            support: {
+                agentRole: "Customer Support Agent für [Company Name]",
+                mainFunction: "Beantworte Kundenfragen basierend auf der Knowledge Base, erstelle Support-Tickets für komplexe Issues und sende Follow-up Emails",
+                workflow: "1. Suche IMMER zuerst die Knowledge Base bevor du antwortest\n2. Falls du keine Antwort findest, erkenne dies an und biete Ticket-Erstellung an\n3. Sei prägnant aber thorough in deinen Antworten\n4. Stelle klärende Fragen falls User-Request unklar ist\n5. Beende Responses mit 'Kann ich dir noch wobei helfen?'",
+                tools: [
+                    { name: "knowledge_base_search", desc: "Suche unsere Dokumentation nach Antworten. Nutze dieses Tool IMMER als ersten Schritt." },
+                    { name: "create_ticket", desc: "Erstelle Support-Ticket für komplexe Issues die nicht sofort gelöst werden können" },
+                    { name: "send_email", desc: "Sende Follow-up Emails an Kunden mit zusätzlichen Informationen" }
+                ],
+                constraints: "- Erfinde KEINE Informationen die nicht in der Knowledge Base sind\n- Versprich KEINE Features oder Capabilities die nicht existieren\n- Behalte IMMER einen professionellen Ton\n- Frage bei Unsicherheit nach statt zu raten",
+                fallback: "Falls keine Antwort in der Knowledge Base: 'Ich konnte keine passende Antwort in unserer Dokumentation finden. Ich erstelle ein Support-Ticket und unser Team wird sich innerhalb von 24 Stunden bei dir melden.'",
+                personality: "- Sei höflich, professionell und empathisch\n- Nutze den Namen des Users wenn verfügbar\n- Bleibe geduldig auch bei wiederholten Fragen\n- Zeige Verständnis für Frustration"
+            },
+            research: {
+                agentRole: "intelligenter Research-Assistent",
+                mainFunction: "Scrape Websites, extrahiere relevante Informationen und speichere strukturierte Recherche-Ergebnisse in Notion",
+                workflow: "1. Nutze das website_scraper Tool um die bereitgestellte URL zu scrapen\n2. Extrahiere Hauptinhalt, Titel und Schlüsselinformationen\n3. Generiere eine prägnante Zusammenfassung der Erkenntnisse\n4. Speichere die Recherche in Notion mit korrekter Formatierung\n5. Sende eine Discord-Benachrichtigung bei Abschluss",
+                tools: [
+                    { name: "website_scraper", desc: "Scrape den kompletten Inhalt einer Website. MUSS als erstes Tool aufgerufen werden." },
+                    { name: "save_to_notion", desc: "Speichere strukturierte Daten in Notion Database mit Titel, Summary und Tags" },
+                    { name: "discord_notification", desc: "Sende Benachrichtigung mit Link zur gespeicherten Notion Page" }
+                ],
+                constraints: "- Du MUSST immer zuerst das website_scraper Tool verwenden\n- Versuche NICHT ohne Scraping zusammenzufassen!\n- Füge immer die Original-URL in deine Notion-Page ein\n- Wähle ein passendes Emoji-Icon basierend auf dem Inhalt",
+                fallback: "Falls Scraping fehlschlägt (404, Timeout, etc.): Informiere den User über das Problem und frage nach einer alternativen URL oder ob du eine manuelle Suche durchführen sollst.",
+                personality: "- Sei präzise und faktenbezogen\n- Hebe wichtige Informationen hervor\n- Strukturiere Daten übersichtlich"
+            },
+            data: {
+                agentRole: "intelligenter Data Analyst Agent",
+                mainFunction: "Übersetze natürliche Sprache in SQL Queries, führe Queries aus, analysiere Results und generiere Visualizations",
+                workflow: "1. Verstehe die User-Frage über die Data\n2. Nutze sql_query Tool um relevante Data zu fetchen\n3. Analysiere die Results\n4. Falls Visualization helfen würde, nutze chart_generator Tool\n5. Liefere Insights in clear, non-technical Language",
+                tools: [
+                    { name: "sql_query", desc: "Execute SQL Queries auf der Database. Verwende NUR SELECT Statements (read-only)." },
+                    { name: "chart_generator", desc: "Erstelle Visualisierungen (Bar Charts, Line Charts, Pie Charts) aus Query Results" },
+                    { name: "data_summarizer", desc: "Generate statistische Summaries (Mean, Median, Distribution)" }
+                ],
+                constraints: "- Validiere IMMER dass Queries read-only sind (SELECT Statements)\n- Erkläre Assumptions die du über die Data machst\n- Falls Query langsam sein könnte oder large Results returnen, warne den User\n- Bei Zahlen, füge relevant Context und Comparisons hinzu",
+                fallback: "Falls Query fehlschlägt: Zeige den User die Error Message und erkläre was schiefging. Schlage eine korrigierte Query vor.",
+                personality: "- Erkläre technische Konzepte in einfacher Sprache\n- Zeige Confidence Level bei Interpretationen\n- Weise auf Limitationen der Daten hin"
+            },
+            email: {
+                agentRole: "Email Summarization Assistant",
+                mainFunction: "Helfe Usern on top ihrer Inbox zu bleiben durch intelligente Kategorisierung und Summarization",
+                workflow: "1. Fetch unread Emails von Gmail\n2. Kategorisiere Emails nach Importance und Urgency\n3. Summarize Key Information von jedem Email\n4. Extrahiere Action Items und Deadlines\n5. Generiere concise Morning und Evening Digest",
+                tools: [
+                    { name: "fetch_gmail", desc: "Lade unread Emails von Gmail Account. Filter nach Datum wenn nötig." },
+                    { name: "categorize_email", desc: "KI-basierte Kategorisierung (work, personal, newsletters, urgent, etc.)" },
+                    { name: "send_digest", desc: "Sende formatiertes Digest via Email oder Slack" }
+                ],
+                constraints: "- Nutze Bullet Points für Clarity\n- Highlight urgent Items im Subject Line\n- Include Sender Name und Timestamp\n- Extrahiere specific Action Items oder needed Decisions\n- Gruppiere Emails nach Category",
+                fallback: "Falls Gmail API fehlschlägt: Informiere User und biete an es später erneut zu versuchen. Zeige die letzten erfolgreichen Digest Results wenn verfügbar.",
+                personality: "- Sei concise - Zeit ist wertvoll\n- Priorisiere actionable Information\n- Nutze klare Kategorien"
+            }
+        };
+
+        function addTool() {
+            const container = document.getElementById('toolsContainer');
+            const toolItem = document.createElement('div');
+            toolItem.className = 'tool-item';
+            toolItem.innerHTML = `
+                <input type="text" placeholder="Tool Name" class="tool-name">
+                <textarea placeholder="Beschreibung: Wann und wie dieses Tool nutzen" class="tool-desc"></textarea>
+            `;
+            container.appendChild(toolItem);
+        }
+
+        function loadTemplate(templateName) {
+            const template = templates[templateName];
+            if (!template) return;
+
+            document.getElementById('agentRole').value = template.agentRole;
+            document.getElementById('mainFunction').value = template.mainFunction;
+            document.getElementById('workflow').value = template.workflow;
+            document.getElementById('constraints').value = template.constraints;
+            document.getElementById('fallback').value = template.fallback;
+            document.getElementById('personality').value = template.personality || '';
+
+            // Clear and load tools
+            const container = document.getElementById('toolsContainer');
+            container.innerHTML = '';
+            template.tools.forEach(tool => {
+                const toolItem = document.createElement('div');
+                toolItem.className = 'tool-item';
+                toolItem.innerHTML = `
+                    <input type="text" placeholder="Tool Name" class="tool-name" value="${tool.name}">
+                    <textarea placeholder="Beschreibung" class="tool-desc">${tool.desc}</textarea>
+                `;
+                container.appendChild(toolItem);
+            });
+
+            generatePrompt();
+        }
+
+        function resetForm() {
+            document.getElementById('agentRole').value = '';
+            document.getElementById('mainFunction').value = '';
+            document.getElementById('workflow').value = '';
+            document.getElementById('constraints').value = '';
+            document.getElementById('fallback').value = '';
+            document.getElementById('personality').value = '';
+            
+            const container = document.getElementById('toolsContainer');
+            container.innerHTML = `
+                <div class="tool-item">
+                    <input type="text" placeholder="Tool Name (z.B. web_search)" class="tool-name">
+                    <textarea placeholder="Beschreibung: Wann und wie dieses Tool nutzen" class="tool-desc"></textarea>
+                </div>
+            `;
+
+            document.getElementById('preview').innerHTML = `<span class="comment">// Formular wurde zurückgesetzt</span>`;
+            updateStats('');
+        }
+
+        function generatePrompt() {
+            const role = document.getElementById('agentRole').value;
+            const mainFunction = document.getElementById('mainFunction').value;
+            const workflow = document.getElementById('workflow').value;
+            const constraints = document.getElementById('constraints').value;
+            const fallback = document.getElementById('fallback').value;
+            const personality = document.getElementById('personality').value;
+
+            if (!role || !mainFunction) {
+                alert('Bitte fülle mindestens "Agent Rolle" und "Hauptfunktion" aus!');
+                return;
+            }
+
+            // Collect tools
+            const toolElements = document.querySelectorAll('.tool-item');
+            const tools = [];
+            toolElements.forEach(el => {
+                const name = el.querySelector('.tool-name').value;
+                const desc = el.querySelector('.tool-desc').value;
+                if (name && desc) {
+                    tools.push({ name, desc });
+                }
+            });
+
+            // Build prompt
+            let prompt = `Du bist ein ${role}.\n\n`;
+            
+            if (mainFunction) {
+                prompt += `Deine Aufgabe:\n${mainFunction}\n\n`;
+            }
+
+            if (workflow) {
+                const steps = workflow.split('\n').filter(s => s.trim());
+                if (steps.length > 0) {
+                    prompt += `Workflow:\n`;
+                    steps.forEach(step => {
+                        prompt += `${step}\n`;
+                    });
+                    prompt += '\n';
+                }
+            }
+
+            if (tools.length > 0) {
+                prompt += `Verfügbare Tools:\n`;
+                tools.forEach(tool => {
+                    prompt += `- ${tool.name}: ${tool.desc}\n`;
+                });
+                prompt += '\n';
+            }
+
+            if (constraints) {
+                prompt += `Wichtige Einschränkungen:\n${constraints}\n\n`;
+            }
+
+            if (fallback) {
+                prompt += `Bei Problemen:\n${fallback}\n\n`;
+            }
+
+            if (personality) {
+                prompt += `Kommunikationsstil:\n${personality}\n`;
+            }
+
+            displayPrompt(prompt);
+            updateStats(prompt);
+        }
+
+        function displayPrompt(prompt) {
+            const preview = document.getElementById('preview');
+            preview.textContent = prompt;
+        }
+
+        function updateStats(prompt) {
+            const charCount = prompt.length;
+            const wordCount = prompt.trim() ? prompt.trim().split(/\s+/).length : 0;
+            const tokenEstimate = Math.ceil(charCount / 3); // Rough estimate: ~3 chars per token
+
+            document.getElementById('charCount').textContent = charCount;
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('tokenEstimate').textContent = tokenEstimate;
+        }
+
+        function copyPrompt() {
+            const preview = document.getElementById('preview');
+            const text = preview.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification();
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                alert('Kopieren fehlgeschlagen. Bitte manuell kopieren.');
+            });
+        }
+
+        function downloadPrompt() {
+            const preview = document.getElementById('preview');
+            const text = preview.textContent;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'n8n-agent-prompt.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function showNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        // Initialize with empty stats
+        updateStats('');
+    </script>
+</body>
+</html>
