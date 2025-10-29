@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template einreichen - n8n Prompt Generator</title>
+    <meta name="description" content="Teile dein n8n AI Agent Template mit der Community">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2a2a2a;
+            font-size: 1.05em;
+        }
+
+        .form-group label .required {
+            color: #dc3545;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .tool-entry {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        .tool-entry input,
+        .tool-entry textarea {
+            margin-bottom: 10px;
+        }
+
+        .remove-tool {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .remove-tool:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            padding: 18px 40px;
+            font-size: 1.2em;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+
+        .preview {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .guidelines {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 30px;
+        }
+
+        .guidelines h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .guidelines ul {
+            margin-left: 20px;
+        }
+
+        .guidelines li {
+            margin-bottom: 8px;
+            color: #856404;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .tools-container {
+            margin-bottom: 15px;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .submission-method {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .submission-method h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .method-option {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .method-option:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .method-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .method-option h4 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📤 Template einreichen</h1>
+            <p>Teile dein n8n AI Agent Template mit der Community und hilf anderen beim Aufbau intelligenter Automation!</p>
+        </div>
+
+        <div id="successMessage" class="success-message">
+            <strong>✓ Erfolgreich eingereicht!</strong><br>
+            Vielen Dank für deinen Beitrag! Wir werden dein Template überprüfen und bei Freigabe zur Template Library hinzufügen.
+        </div>
+
+        <div id="errorMessage" class="error-message">
+            <strong>⚠ Fehler beim Einreichen</strong><br>
+            <span id="errorText">Bitte fülle alle Pflichtfelder aus.</span>
+        </div>
+
+        <div class="card">
+            <h2>📋 Dein Template</h2>
+
+            <div class="info-box">
+                <h3>💡 Warum Templates einreichen?</h3>
+                <p>Dein Template kann hunderten anderen Developern helfen, die ähnliche Use Cases haben. Die besten Community-Templates werden prominent im Generator featured!</p>
+            </div>
+
+            <div class="guidelines">
+                <h3>⚠️ Richtlinien für gute Templates</h3>
+                <ul>
+                    <li>Teste dein Template gründlich in n8n bevor du es einreichst</li>
+                    <li>Beschreibe klar den Use Case und wann das Template nützlich ist</li>
+                    <li>Gib konkrete Tool-Beschreibungen an (nicht nur Tool-Namen)</li>
+                    <li>Füge relevante Constraints und Fallback-Verhalten hinzu</li>
+                    <li>Halte dich an die Best Practices aus dem Kurs</li>
+                </ul>
+            </div>
+
+            <form id="templateForm">
+                <!-- Submitter Info -->
+                <div class="form-group">
+                    <label for="submitterName">Dein Name <span class="required">*</span></label>
+                    <input type="text" id="submitterName" required placeholder="Max Mustermann">
+                    <small>Wird als Author im Template angezeigt</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="submitterEmail">Deine Email <span class="required">*</span></label>
+                    <input type="email" id="submitterEmail" required placeholder="max@example.com">
+                    <small>Wird nur für Rückfragen verwendet, nicht öffentlich sichtbar</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="submitterGithub">GitHub Username (Optional)</label>
+                    <input type="text" id="submitterGithub" placeholder="@maxmustermann">
+                    <small>Falls du Credit im Repository bekommen möchtest</small>
+                </div>
+
+                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+
+                <!-- Template Info -->
+                <div class="form-group">
+                    <label for="templateName">Template Name <span class="required">*</span></label>
+                    <input type="text" id="templateName" required placeholder="z.B. Social Media Scheduler">
+                    <small>Kurzer, beschreibender Name</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateCategory">Kategorie <span class="required">*</span></label>
+                    <select id="templateCategory" required>
+                        <option value="">-- Bitte wählen --</option>
+                        <option value="customer-support">Customer Support</option>
+                        <option value="research">Research & Analysis</option>
+                        <option value="data-processing">Data Processing</option>
+                        <option value="content-creation">Content Creation</option>
+                        <option value="email-automation">Email Automation</option>
+                        <option value="social-media">Social Media</option>
+                        <option value="ecommerce">E-Commerce</option>
+                        <option value="project-management">Project Management</option>
+                        <option value="other">Sonstiges</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="templateDescription">Beschreibung & Use Case <span class="required">*</span></label>
+                    <textarea id="templateDescription" required placeholder="Beschreibe detailliert wofür dieses Template gedacht ist, welches Problem es löst und in welchen Situationen es nützlich ist..."></textarea>
+                    <small>Mind. 100 Zeichen - sei konkret!</small>
+                    <div class="char-counter" id="descCounter">0 Zeichen</div>
+                </div>
+
+                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+
+                <!-- Agent Configuration -->
+                <div class="form-group">
+                    <label for="agentRole">Agent Rolle <span class="required">*</span></label>
+                    <input type="text" id="agentRole" required placeholder="z.B. Social Media Automation Agent">
+                </div>
+
+                <div class="form-group">
+                    <label for="mainFunction">Hauptfunktion <span class="required">*</span></label>
+                    <textarea id="mainFunction" required placeholder="z.B. Plant, erstellt und veröffentlicht Social Media Posts basierend auf Content-Kalender"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="workflow">Workflow Schritte <span class="required">*</span></label>
+                    <textarea id="workflow" required placeholder="1. Lade Content-Kalender aus Notion&#10;2. Generiere Post-Text basierend auf Thema&#10;3. Erstelle passendes Bild mit DALL-E&#10;4. Veröffentliche zu optimaler Zeit&#10;5. Tracke Engagement Metrics"></textarea>
+                    <small>Ein Schritt pro Zeile, nummeriert</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Verfügbare Tools <span class="required">*</span></label>
+                    <small style="margin-bottom: 10px;">Mindestens 1 Tool erforderlich</small>
+                    <div class="tools-container" id="toolsContainer">
+                        <div class="tool-entry">
+                            <input type="text" placeholder="Tool Name (z.B. notion_reader)" class="tool-name" required>
+                            <textarea placeholder="Detaillierte Beschreibung: Wann und wie dieses Tool nutzen. Sei spezifisch!" class="tool-desc" required></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-small" onclick="addTool()">+ Tool hinzufügen</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="constraints">Einschränkungen & Regeln <span class="required">*</span></label>
+                    <textarea id="constraints" required placeholder="- Du MUSST immer...&#10;- Du darfst NIEMALS...&#10;- Bei... führe aus..."></textarea>
+                    <small>Was darf der Agent tun/nicht tun? Sei explizit!</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="fallback">Fallback Verhalten <span class="required">*</span></label>
+                    <textarea id="fallback" required placeholder="Falls Tool X fehlschlägt: ...&#10;Falls keine Daten verfügbar: ..."></textarea>
+                    <small>Wie handled der Agent Fehler und Edge Cases?</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="personality">Kommunikationsstil (Optional)</label>
+                    <textarea id="personality" placeholder="- Sei freundlich und motivierend&#10;- Nutze Emojis passend zum Social Media Kontext&#10;- Halte Updates kurz und prägnant"></textarea>
+                </div>
+
+                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+
+                <!-- Additional Info -->
+                <div class="form-group">
+                    <label for="testResults">Test-Ergebnisse (Optional aber empfohlen)</label>
+                    <textarea id="testResults" placeholder="Beschreibe wie du das Template getestet hast und welche Ergebnisse du erzielt hast..."></textarea>
+                    <small>Hilft bei der Qualitätssicherung</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalNotes">Zusätzliche Notizen (Optional)</label>
+                    <textarea id="additionalNotes" placeholder="Gibt es besondere Setup-Anforderungen? Bekannte Limitations? Best Practices?"></textarea>
+                </div>
+
+                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+
+                <!-- Preview -->
+                <div class="form-group">
+                    <label>Preview des generierten Prompts</label>
+                    <button type="button" class="btn btn-secondary btn-small" onclick="generatePreview()">🔄 Preview generieren</button>
+                    <div class="preview" id="preview">
+                        <span style="color: #6a9955;">// Preview erscheint hier nach Klick auf "Preview generieren"</span>
+                    </div>
+                </div>
+
+                <!-- Submission Method -->
+                <div class="submission-method">
+                    <h3>Wie möchtest du dein Template einreichen?</h3>
+                    
+                    <div class="method-option" onclick="selectMethod('github')" id="method-github">
+                        <h4>🌟 Via GitHub Issue (Empfohlen)</h4>
+                        <p>Erstellt automatisch ein GitHub Issue mit deinem Template. Öffentlich und transparent.</p>
+                    </div>
+                    
+                    <div class="method-option" onclick="selectMethod('email')" id="method-email">
+                        <h4>📧 Via Email</h4>
+                        <p>Sendet das Template per Email. Für private Submissions oder falls du keinen GitHub Account hast.</p>
+                    </div>
+                </div>
+
+                <input type="hidden" id="submissionMethod" value="github">
+
+                <!-- Submit Button -->
+                <div style="text-align: center; margin-top: 40px;">
+                    <button type="submit" class="btn btn-success">
+                        🚀 Template Einreichen
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>Vielen Dank für deinen Beitrag zur n8n AI Agent Community! 🙏</p>
+            <p style="margin-top: 10px;">
+                <a href="index.html">← Zurück zum Generator</a> | 
+                <a href="https://github.com/yourusername/n8n-prompt-generator" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let selectedMethod = 'github';
+
+        // Character counter for description
+        document.getElementById('templateDescription').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('descCounter').textContent = count + ' Zeichen';
+        });
+
+        function addTool() {
+            const container = document.getElementById('toolsContainer');
+            const toolEntry = document.createElement('div');
+            toolEntry.className = 'tool-entry';
+            toolEntry.innerHTML = `
+                <input type="text" placeholder="Tool Name" class="tool-name" required>
+                <textarea placeholder="Detaillierte Beschreibung" class="tool-desc" required></textarea>
+                <button type="button" class="remove-tool" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(toolEntry);
+        }
+
+        function selectMethod(method) {
+            selectedMethod = method;
+            document.getElementById('submissionMethod').value = method;
+            
+            // Update UI
+            document.querySelectorAll('.method-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.getElementById('method-' + method).classList.add('selected');
+        }
+
+        function generatePreview() {
+            const role = document.getElementById('agentRole').value;
+            const mainFunction = document.getElementById('mainFunction').value;
+            const workflow = document.getElementById('workflow').value;
+            const constraints = document.getElementById('constraints').value;
+            const fallback = document.getElementById('fallback').value;
+            const personality = document.getElementById('personality').value;
+
+            // Collect tools
+            const toolElements = document.querySelectorAll('.tool-entry');
+            const tools = [];
+            toolElements.forEach(el => {
+                const name = el.querySelector('.tool-name').value;
+                const desc = el.querySelector('.tool-desc').value;
+                if (name && desc) {
+                    tools.push({ name, desc });
+                }
+            });
+
+            if (!role || !mainFunction) {
+                alert('Bitte fülle mindestens "Agent Rolle" und "Hauptfunktion" aus für die Preview!');
+                return;
+            }
+
+            // Build prompt
+            let prompt = `Du bist ein ${role}.\n\n`;
+            
+            if (mainFunction) {
+                prompt += `Deine Aufgabe:\n${mainFunction}\n\n`;
+            }
+
+            if (workflow) {
+                const steps = workflow.split('\n').filter(s => s.trim());
+                if (steps.length > 0) {
+                    prompt += `Workflow:\n`;
+                    steps.forEach(step => {
+                        prompt += `${step}\n`;
+                    });
+                    prompt += '\n';
+                }
+            }
+
+            if (tools.length > 0) {
+                prompt += `Verfügbare Tools:\n`;
+                tools.forEach(tool => {
+                    prompt += `- ${tool.name}: ${tool.desc}\n`;
+                });
+                prompt += '\n';
+            }
+
+            if (constraints) {
+                prompt += `Wichtige Einschränkungen:\n${constraints}\n\n`;
+            }
+
+            if (fallback) {
+                prompt += `Bei Problemen:\n${fallback}\n\n`;
+            }
+
+            if (personality) {
+                prompt += `Kommunikationsstil:\n${personality}\n`;
+            }
+
+            document.getElementById('preview').textContent = prompt;
+        }
+
+        document.getElementById('templateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate
+            const description = document.getElementById('templateDescription').value;
+            if (description.length < 100) {
+                showError('Die Beschreibung muss mindestens 100 Zeichen lang sein.');
+                return;
+            }
+
+            const tools = document.querySelectorAll('.tool-entry');
+            if (tools.length === 0) {
+                showError('Bitte füge mindestens ein Tool hinzu.');
+                return;
+            }
+
+            // Collect all data
+            const formData = {
+                submitter: {
+                    name: document.getElementById('submitterName').value,
+                    email: document.getElementById('submitterEmail').value,
+                    github: document.getElementById('submitterGithub').value
+                },
+                template: {
+                    name: document.getElementById('templateName').value,
+                    category: document.getElementById('templateCategory').value,
+                    description: description,
+                    agentRole: document.getElementById('agentRole').value,
+                    mainFunction: document.getElementById('mainFunction').value,
+                    workflow: document.getElementById('workflow').value,
+                    tools: [],
+                    constraints: document.getElementById('constraints').value,
+                    fallback: document.getElementById('fallback').value,
+                    personality: document.getElementById('personality').value,
+                    testResults: document.getElementById('testResults').value,
+                    additionalNotes: document.getElementById('additionalNotes').value
+                }
+            };
+
+            // Collect tools
+            document.querySelectorAll('.tool-entry').forEach(el => {
+                const name = el.querySelector('.tool-name').value;
+                const desc = el.querySelector('.tool-desc').value;
+                if (name && desc) {
+                    formData.template.tools.push({ name, desc });
+                }
+            });
+
+            // Submit based on method
+            if (selectedMethod === 'github') {
+                submitViaGitHub(formData);
+            } else {
+                submitViaEmail(formData);
+            }
+        });
+
+        function submitViaGitHub(formData) {
+            // Create GitHub Issue body
+            const issueBody = `
+## Template Submission
+
+**Submitted by:** ${formData.submitter.name} ${formData.submitter.github ? '(@' + formData.submitter.github + ')' : ''}
+**Category:** ${formData.template.category}
+
+## Template: ${formData.template.name}
+
+### Description
+${formData.template.description}
+
+### Agent Configuration
+
+**Role:** ${formData.template.agentRole}
+
+**Main Function:**
+${formData.template.mainFunction}
+
+**Workflow:**
+${formData.template.workflow}
+
+**Tools:**
+${formData.template.tools.map(t => `- **${t.name}**: ${t.desc}`).join('\n')}
+
+**Constraints:**
+${formData.template.constraints}
+
+**Fallback Behavior:**
+${formData.template.fallback}
+
+${formData.template.personality ? '**Communication Style:**\n' + formData.template.personality : ''}
+
+${formData.template.testResults ? '### Test Results\n' + formData.template.testResults : ''}
+
+${formData.template.additionalNotes ? '### Additional Notes\n' + formData.template.additionalNotes : ''}
+
+---
+**Contact:** ${formData.submitter.email}
+            `.trim();
+
+            // Create GitHub Issue URL
+            const repoUrl = 'https://github.com/yourusername/n8n-prompt-generator';
+            const issueUrl = `${repoUrl}/issues/new?title=${encodeURIComponent('New Template: ' + formData.template.name)}&body=${encodeURIComponent(issueBody)}&labels=template-submission`;
+
+            // Open in new tab
+            window.open(issueUrl, '_blank');
+            
+            showSuccess();
+        }
+
+        function submitViaEmail(formData) {
+            // Create email body
+            const emailBody = `
+Template Submission: ${formData.template.name}
+
+Submitter: ${formData.submitter.name}
+Email: ${formData.submitter.email}
+GitHub: ${formData.submitter.github || 'N/A'}
+
+Category: ${formData.template.category}
+
+Description:
+${formData.template.description}
+
+Agent Role: ${formData.template.agentRole}
+
+Main Function:
+${formData.template.mainFunction}
+
+Workflow:
+${formData.template.workflow}
+
+Tools:
+${formData.template.tools.map(t => `- ${t.name}: ${t.desc}`).join('\n')}
+
+Constraints:
+${formData.template.constraints}
+
+Fallback:
+${formData.template.fallback}
+
+Communication Style:
+${formData.template.personality || 'N/A'}
+
+Test Results:
+${formData.template.testResults || 'N/A'}
+
+Additional Notes:
+${formData.template.additionalNotes || 'N/A'}
+            `.trim();
+
+            // Open email client
+            const mailtoLink = `mailto:your-email@example.com?subject=${encodeURIComponent('Template Submission: ' + formData.template.name)}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailtoLink;
+            
+            showSuccess();
+        }
+
+        function showSuccess() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                document.getElementById('templateForm').reset();
+                document.getElementById('toolsContainer').innerHTML = `
+                    <div class="tool-entry">
+                        <input type="text" placeholder="Tool Name (z.B. notion_reader)" class="tool-name" required>
+                        <textarea placeholder="Detaillierte Beschreibung" class="tool-desc" required></textarea>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize with GitHub method selected
+        selectMethod('github');
+    </script>
+</body>
+</html>
