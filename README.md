@@ -88,7 +88,7 @@ Der Generator implementiert automatisch bewährte Patterns:
 - Context-Aware Instructions
 - ...und mehr!
 
-Lerne mehr im [n8n AI Agent Mastery Kurs](#) (Link zum Kurs einfügen)
+Lerne mehr in der [AI Automation Engineer Skool Community](https://www.skool.com/ki-heroes/)
 
 ## 🤝 Template einreichen
 
