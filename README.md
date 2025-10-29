@@ -207,9 +207,9 @@ Dieses Projekt ist lizensiert unter der MIT License - siehe [LICENSE](LICENSE) f
 ## 📞 Support & Community
 
 - 🌐 **Live Demo**: [https://oliverhees.github.io/n8n-agent-prompt-generator](https://oliverhees.github.io/n8n-agent-prompt-generator)
-- 📖 **Kurs**: [n8n AI Agent Mastery](#)
+- 📖 **Kurs**: [AI Automation Engineer Skool Community](https://www.skool.com/ki-heroes/)
 - 💬 **Issues**: [GitHub Issues](https://github.com/oliverhees/n8n-agent-prompt-generator/issues)
-- 📧 **Email**: your-email@example.com
+- 📧 **Email**: o.hees@ki-heroes.net
 
 ## ⭐ Star History
 
@@ -223,4 +223,4 @@ Dieses Projekt ist lizensiert unter der MIT License - siehe [LICENSE](LICENSE) f
 
 **Probleme gefunden?** [Erstelle ein Issue!](https://github.com/oliverhees/n8n-agent-prompt-generator/issues/new)
 
-Made with ❤️ for the n8n Community
+Made with ❤️ for the n8n Community by Oliver Hees
