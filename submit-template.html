@@ -14,7 +14,11 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0a0e1a;
+            background-image: 
+                radial-gradient(at 20% 30%, rgba(94, 212, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(78, 184, 255, 0.15) 0px, transparent 50%);
+            color: #e8f4ff;
             min-height: 100vh;
             padding: 20px;
         }
@@ -24,53 +28,128 @@
             margin: 0 auto;
         }
 
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(94, 212, 255, 0.2);
+            border-radius: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(94, 212, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #5ed4ff 0%, #8ee4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-back {
+            background: rgba(94, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #5ed4ff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(94, 212, 255, 0.3);
+        }
+
+        .btn-back:hover {
+            background: rgba(94, 212, 255, 0.2);
+            border-color: #5ed4ff;
+            transform: translateY(-2px);
+        }
+
         .header {
             text-align: center;
-            color: white;
+            color: #e8f4ff;
             margin-bottom: 40px;
             padding: 40px 20px;
         }
 
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #5ed4ff 0%, #8ee4ff 50%, #5ed4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(94, 212, 255, 0.3));
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.95;
+            font-size: 1.15em;
+            color: #b8d4e8;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .card {
-            background: white;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(94, 212, 255, 0.2);
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             margin-bottom: 30px;
         }
 
         .card h2 {
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+            color: #5ed4ff;
+            margin-bottom: 25px;
+            font-size: 1.9em;
+            border-bottom: 2px solid rgba(94, 212, 255, 0.3);
+            padding-bottom: 12px;
+            text-shadow: 0 0 20px rgba(94, 212, 255, 0.3);
         }
 
         .info-box {
-            background: #e7f3ff;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #2196F3;
+            background: rgba(94, 212, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 4px solid #5ed4ff;
             margin-bottom: 30px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         .info-box h3 {
-            color: #2196F3;
+            color: #5ed4ff;
             margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(94, 212, 255, 0.3);
+        }
+
+        .guidelines {
+            background: rgba(255, 193, 7, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 4px solid #ffca28;
+            margin-bottom: 30px;
+        }
+
+        .guidelines h3 {
+            color: #ffca28;
+            margin-bottom: 10px;
+        }
+
+        .guidelines ul {
+            margin-left: 20px;
+        }
+
+        .guidelines li {
+            margin-bottom: 8px;
+            color: #e8f4ff;
         }
 
         .form-group {
@@ -81,31 +160,36 @@
             display: block;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #2a2a2a;
+            color: #8ee4ff;
             font-size: 1.05em;
         }
 
         .form-group label .required {
-            color: #dc3545;
+            color: #ff6b6b;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 14px;
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(94, 212, 255, 0.25);
+            border-radius: 12px;
             font-size: 1em;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            color: #e8f4ff;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #5ed4ff;
+            box-shadow: 0 0 20px rgba(94, 212, 255, 0.3);
+            background: rgba(10, 14, 26, 0.8);
         }
 
         .form-group textarea {
@@ -117,17 +201,19 @@
         .form-group small {
             display: block;
             margin-top: 5px;
-            color: #666;
+            color: #7da8c4;
             font-size: 0.9em;
         }
 
         .tool-entry {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            background: rgba(94, 212, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 18px;
+            border-radius: 12px;
             margin-bottom: 15px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #5ed4ff;
             position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         .tool-entry input,
@@ -137,189 +223,224 @@
 
         .remove-tool {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #dc3545;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
         }
 
         .remove-tool:hover {
-            background: #c82333;
             transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(255, 107, 107, 0.5);
         }
 
         .btn {
-            background: #667eea;
-            color: white;
+            background: linear-gradient(135deg, #5ed4ff 0%, #4eb8ff 100%);
+            color: #0a0e1a;
             border: none;
             padding: 14px 28px;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 1.05em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             margin-right: 10px;
             margin-bottom: 10px;
+            box-shadow: 0 4px 16px rgba(94, 212, 255, 0.3);
         }
 
         .btn:hover {
-            background: #5568d3;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 24px rgba(94, 212, 255, 0.5);
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: #e8f4ff;
+            border: 1px solid rgba(94, 212, 255, 0.3);
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #5ed4ff;
         }
 
         .btn-success {
-            background: #28a745;
+            background: linear-gradient(135deg, #5ed4ff 0%, #3aa8dd 100%);
             padding: 18px 40px;
             font-size: 1.2em;
         }
 
-        .btn-success:hover {
-            background: #218838;
-        }
-
         .btn-small {
-            padding: 8px 16px;
-            font-size: 0.9em;
+            padding: 10px 18px;
+            font-size: 0.95em;
         }
 
         .preview {
-            background: #1e1e1e;
-            color: #d4d4d4;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            color: #8ee4ff;
             padding: 25px;
-            border-radius: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(94, 212, 255, 0.3);
             font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            line-height: 1.6;
+            font-size: 0.95em;
+            line-height: 1.7;
             white-space: pre-wrap;
             max-height: 400px;
             overflow-y: auto;
             margin-top: 20px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #28a745;
+            background: rgba(94, 212, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: #5ed4ff;
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 4px solid #5ed4ff;
             margin-bottom: 20px;
             display: none;
+            box-shadow: 0 4px 16px rgba(94, 212, 255, 0.2);
         }
 
         .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #dc3545;
+            background: rgba(255, 107, 107, 0.15);
+            backdrop-filter: blur(10px);
+            color: #ff6b6b;
+            padding: 22px;
+            border-radius: 12px;
+            border-left: 4px solid #ff6b6b;
             margin-bottom: 20px;
             display: none;
         }
 
-        .guidelines {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #ffc107;
-            margin-bottom: 30px;
-        }
-
-        .guidelines h3 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .guidelines ul {
-            margin-left: 20px;
-        }
-
-        .guidelines li {
-            margin-bottom: 8px;
-            color: #856404;
-        }
-
-        .footer {
-            text-align: center;
-            color: white;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        .footer a {
-            color: white;
-            text-decoration: underline;
-        }
-
-        .tools-container {
-            margin-bottom: 15px;
-        }
-
-        .char-counter {
-            text-align: right;
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 5px;
-        }
-
         .submission-method {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+            background: rgba(94, 212, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 22px;
+            border-radius: 12px;
             margin: 20px 0;
+            border: 1px solid rgba(94, 212, 255, 0.2);
         }
 
         .submission-method h3 {
-            color: #667eea;
+            color: #5ed4ff;
             margin-bottom: 15px;
         }
 
         .method-option {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 2px solid rgba(94, 212, 255, 0.2);
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .method-option:hover {
-            border-color: #667eea;
+            border-color: #5ed4ff;
             transform: translateX(5px);
+            background: rgba(94, 212, 255, 0.08);
         }
 
         .method-option.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: #5ed4ff;
+            background: rgba(94, 212, 255, 0.15);
+            box-shadow: 0 4px 16px rgba(94, 212, 255, 0.2);
         }
 
         .method-option h4 {
-            color: #667eea;
+            color: #5ed4ff;
             margin-bottom: 5px;
+        }
+
+        .method-option p {
+            color: #b8d4e8;
+        }
+
+        .footer {
+            text-align: center;
+            color: #7da8c4;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(94, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+        }
+
+        .footer a {
+            color: #5ed4ff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #8ee4ff;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.9em;
+            color: #7da8c4;
+            margin-top: 5px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(94, 212, 255, 0.2);
+        }
+
+        select option {
+            background: #0a0e1a;
+            color: #e8f4ff;
+        }
+
+        ::placeholder {
+            color: #5a7a94;
+        }
+
+        .preview::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .preview::-webkit-scrollbar-track {
+            background: rgba(94, 212, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .preview::-webkit-scrollbar-thumb {
+            background: rgba(94, 212, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .preview::-webkit-scrollbar-thumb:hover {
+            background: #5ed4ff;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="top-bar">
+            <div class="logo">📤 Template Einreichen</div>
+            <a href="index.html" class="btn-back">← Zurück zum Generator</a>
+        </div>
+
         <div class="header">
             <h1>📤 Template einreichen</h1>
-            <p>Teile dein n8n AI Agent Template mit der Community und hilf anderen beim Aufbau intelligenter Automation!</p>
+            <p>Teile dein n8n AI Agent Template mit der AI Automation Engineers Community und hilf anderen beim Aufbau intelligenter Automation!</p>
         </div>
 
         <div id="successMessage" class="success-message">
@@ -347,7 +468,7 @@
                     <li>Beschreibe klar den Use Case und wann das Template nützlich ist</li>
                     <li>Gib konkrete Tool-Beschreibungen an (nicht nur Tool-Namen)</li>
                     <li>Füge relevante Constraints und Fallback-Verhalten hinzu</li>
-                    <li>Halte dich an die Best Practices aus dem Kurs</li>
+                    <li>Halte dich an die Best Practices aus der Community</li>
                 </ul>
             </div>
 
@@ -371,7 +492,7 @@
                     <small>Falls du Credit im Repository bekommen möchtest</small>
                 </div>
 
-                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+                <hr style="margin: 40px 0;">
 
                 <!-- Template Info -->
                 <div class="form-group">
@@ -403,7 +524,7 @@
                     <div class="char-counter" id="descCounter">0 Zeichen</div>
                 </div>
 
-                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+                <hr style="margin: 40px 0;">
 
                 <!-- Agent Configuration -->
                 <div class="form-group">
@@ -451,7 +572,7 @@
                     <textarea id="personality" placeholder="- Sei freundlich und motivierend&#10;- Nutze Emojis passend zum Social Media Kontext&#10;- Halte Updates kurz und prägnant"></textarea>
                 </div>
 
-                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+                <hr style="margin: 40px 0;">
 
                 <!-- Additional Info -->
                 <div class="form-group">
@@ -465,15 +586,13 @@
                     <textarea id="additionalNotes" placeholder="Gibt es besondere Setup-Anforderungen? Bekannte Limitations? Best Practices?"></textarea>
                 </div>
 
-                <hr style="margin: 40px 0; border: 1px solid #e0e0e0;">
+                <hr style="margin: 40px 0;">
 
                 <!-- Preview -->
                 <div class="form-group">
                     <label>Preview des generierten Prompts</label>
                     <button type="button" class="btn btn-secondary btn-small" onclick="generatePreview()">🔄 Preview generieren</button>
-                    <div class="preview" id="preview">
-                        <span style="color: #6a9955;">// Preview erscheint hier nach Klick auf "Preview generieren"</span>
-                    </div>
+                    <div class="preview" id="preview">// Preview erscheint hier nach Klick auf "Preview generieren"</div>
                 </div>
 
                 <!-- Submission Method -->
@@ -503,10 +622,14 @@
         </div>
 
         <div class="footer">
-            <p>Vielen Dank für deinen Beitrag zur n8n AI Agent Community! 🙏</p>
+            <p>Vielen Dank für deinen Beitrag zur AI Automation Engineers Community! 🙏</p>
             <p style="margin-top: 10px;">
                 <a href="index.html">← Zurück zum Generator</a> | 
-                <a href="https://github.com/yourusername/n8n-prompt-generator" target="_blank">GitHub</a>
+                <a href="https://github.com/oliverhees/n8n-agent-prompt-generator" target="_blank">GitHub</a> |
+                <a href="https://www.skool.com/ki-heroes/" target="_blank">Skool Community</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                Entwickelt von <a href="https://github.com/oliverhees" target="_blank">Oliver Hees</a>
             </p>
         </div>
     </div>
@@ -514,7 +637,6 @@
     <script>
         let selectedMethod = 'github';
 
-        // Character counter for description
         document.getElementById('templateDescription').addEventListener('input', function() {
             const count = this.value.length;
             document.getElementById('descCounter').textContent = count + ' Zeichen';
@@ -536,7 +658,6 @@
             selectedMethod = method;
             document.getElementById('submissionMethod').value = method;
             
-            // Update UI
             document.querySelectorAll('.method-option').forEach(el => {
                 el.classList.remove('selected');
             });
@@ -551,7 +672,6 @@
             const fallback = document.getElementById('fallback').value;
             const personality = document.getElementById('personality').value;
 
-            // Collect tools
             const toolElements = document.querySelectorAll('.tool-entry');
             const tools = [];
             toolElements.forEach(el => {
@@ -567,7 +687,6 @@
                 return;
             }
 
-            // Build prompt
             let prompt = `Du bist ein ${role}.\n\n`;
             
             if (mainFunction) {
@@ -611,7 +730,6 @@
         document.getElementById('templateForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Validate
             const description = document.getElementById('templateDescription').value;
             if (description.length < 100) {
                 showError('Die Beschreibung muss mindestens 100 Zeichen lang sein.');
@@ -624,7 +742,6 @@
                 return;
             }
 
-            // Collect all data
             const formData = {
                 submitter: {
                     name: document.getElementById('submitterName').value,
@@ -647,7 +764,6 @@
                 }
             };
 
-            // Collect tools
             document.querySelectorAll('.tool-entry').forEach(el => {
                 const name = el.querySelector('.tool-name').value;
                 const desc = el.querySelector('.tool-desc').value;
@@ -656,7 +772,6 @@
                 }
             });
 
-            // Submit based on method
             if (selectedMethod === 'github') {
                 submitViaGitHub(formData);
             } else {
@@ -665,7 +780,6 @@
         });
 
         function submitViaGitHub(formData) {
-            // Create GitHub Issue body
             const issueBody = `
 ## Template Submission
 
@@ -706,18 +820,15 @@ ${formData.template.additionalNotes ? '### Additional Notes\n' + formData.templa
 **Contact:** ${formData.submitter.email}
             `.trim();
 
-            // Create GitHub Issue URL
-            const repoUrl = 'https://github.com/yourusername/n8n-prompt-generator';
+            const repoUrl = 'https://github.com/oliverhees/n8n-agent-prompt-generator';
             const issueUrl = `${repoUrl}/issues/new?title=${encodeURIComponent('New Template: ' + formData.template.name)}&body=${encodeURIComponent(issueBody)}&labels=template-submission`;
 
-            // Open in new tab
             window.open(issueUrl, '_blank');
             
             showSuccess();
         }
 
         function submitViaEmail(formData) {
-            // Create email body
             const emailBody = `
 Template Submission: ${formData.template.name}
 
@@ -757,8 +868,7 @@ Additional Notes:
 ${formData.template.additionalNotes || 'N/A'}
             `.trim();
 
-            // Open email client
-            const mailtoLink = `mailto:your-email@example.com?subject=${encodeURIComponent('Template Submission: ' + formData.template.name)}&body=${encodeURIComponent(emailBody)}`;
+            const mailtoLink = `mailto:oliver@ki-heroes.de?subject=${encodeURIComponent('Template Submission: ' + formData.template.name)}&body=${encodeURIComponent(emailBody)}`;
             window.location.href = mailtoLink;
             
             showSuccess();
@@ -769,7 +879,6 @@ ${formData.template.additionalNotes || 'N/A'}
             document.getElementById('errorMessage').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Reset form after 3 seconds
             setTimeout(() => {
                 document.getElementById('templateForm').reset();
                 document.getElementById('toolsContainer').innerHTML = `
@@ -788,7 +897,6 @@ ${formData.template.additionalNotes || 'N/A'}
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Initialize with GitHub method selected
         selectMethod('github');
     </script>
 </body>
